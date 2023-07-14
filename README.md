@@ -12,6 +12,9 @@
 
 This app has been created to demonstate memory leaks in jest using node 16.11+ as discussed here: https://github.com/jestjs/jest/issues/11956. The thread states that memory leaks were not an issue running jest with node 16.10.
 
+This project will be augmented as new tests are devised to exercise jest memory management.
+
+
 ## Installation
 
 ```bash
@@ -21,6 +24,29 @@ $ npm install
 ## Testing
 
 Testing is the main focus of this repo. Test have been compiled in sets of increasing complexity to track and demonstrate the introduction and management of memory leaks.
+
+Currently there are two sets of duplicated tests, listed here with expected results:
+
+## Memory leak tests
+
+A variety of memory and performance checks for creating and freeing a contrived memory leak.
+
+test results: tests prove that memoery accumulates and can be freed by exposing and calling the garbage collector.
+
+## Test Container leak tests
+
+A variety of memory and timing checks for creating and freeing a contrived memory leak alongside setting up and tearing down docker testcontainers.
+
+test results: tests prove that memory leaks accumulate and are not freed up by exposing and calling the garbage collector.
+
+
+```bash
+# single memory leak test
+npm run test leak1
+
+```
+
+To run all tests:
 
 ```bash
 # unit tests
@@ -33,7 +59,9 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-### Running the app (default Nest readme content though not required here)
+### Running the app.
+
+Default Nest readme content though not required here. To see this is an actual working app, run it and hit localhost:3000.
 
 ```bash
 # development
@@ -49,12 +77,6 @@ $ npm run start:prod
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
