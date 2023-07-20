@@ -15,7 +15,7 @@ find "$folder" -type f ! -samefile "$original_file" -links +1 -exec rm {} +
 
 # Create new hard links with an incremental count
 for ((i=2; i<=count+1; i++)); do
-  new_filename="testcontainer$i.spec.ts"
+  new_filename="global$i.spec.ts"
   if ln -Pf "$original_file" "$folder/$new_filename"; then
     echo "Created hard link: $folder/$new_filename"
   else

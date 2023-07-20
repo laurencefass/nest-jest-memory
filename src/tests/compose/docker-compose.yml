@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  mockserver:
+    image: mockserver/mockserver@sha256:b8a8bc5042b6fd7fbe0acfbf81b23a5f576579fae48fcdecb676c9492905341d
+    container_name: "mockserver"
+    hostname: mockserver
+    ports:
+      - 1090:1080
+  postgres:
+    image: postgres:13.4
+    container_name: "postgres"
+    hostname: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"

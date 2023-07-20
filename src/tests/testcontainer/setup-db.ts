@@ -4,17 +4,20 @@ import {
 } from 'testcontainers';
 function postgres() {
   let container: StartedPostgreSqlContainer | undefined = undefined;
-  async function setupTestPostgres() {
+
+  async function setupTestPostgres(network) {
     container = await new PostgreSqlContainer('postgres:13.4')
+      .withNetwork(network)
       .withUsername('postgres')
       .withPassword('postgres')
       .withDatabase('postgres')
       .start();
   }
 
-  function tearDownPostgres() {
+  async function tearDownPostgres() {
     return container?.stop({
-      timeout: 1000,
+      timeout: 10000,
+      remove: true,
       removeVolumes: true,
     });
   }

@@ -1,22 +1,28 @@
 import { GenericContainer, StartedTestContainer, Wait } from 'testcontainers';
+
 function mockServer() {
   const containerPort = 8076;
   let container: StartedTestContainer | undefined = undefined;
-  async function setupMockServer() {
+
+  async function setupMockServer(network) {
     container = await new GenericContainer('mockserver/mockserver')
+      .withNetwork(network)
       .withExposedPorts(containerPort)
-      .withEnv('MOCKSERVER_SERVER_PORT', `${containerPort}`)
-      .withEnv('MOCKSERVER_LIVENESS_HTTP_GET_PATH', '/status')
+      .withEnvironment({
+        MOCKSERVER_SERVER_PORT: `${containerPort}`,
+        MOCKSERVER_LIVENESS_HTTP_GET_PATH: '/status',
+      })
       .withWaitStrategy(Wait.forLogMessage(/started on port/))
       .start();
   }
 
-  function tearDownMockServer() {
+  async function tearDownMockServer() {
     if (!container) {
       console.log('Could not tear down mock server, container is undefined');
     }
-    return container?.stop({
-      timeout: 1000,
+    return await container?.stop({
+      timeout: 10000,
+      remove: true,
       removeVolumes: true,
     });
   }

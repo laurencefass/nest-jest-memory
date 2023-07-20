@@ -1,3 +1,5 @@
+import fetch from 'node-fetch';
+
 export function mb(value: number) {
   return value / (1024 * 1024);
 }
@@ -29,7 +31,7 @@ export function trace(msg: string, cb = undefined) {
   // stats1 = v8.getHeapStatistics();
   // console.log(`initial heap allocation: ${mb(stats1.total_heap_size)} Mb`);
   console.log(
-    `${msg} => process.memoryUsage ${mb(process.memoryUsage().heapTotal)} Mb`,
+    `${msg} => process.memoryUsage ${mb(process.memoryUsage().heapUsed)} Mb`,
   );
 
   // execute any supplied callback
